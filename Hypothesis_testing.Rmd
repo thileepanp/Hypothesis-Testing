@@ -143,7 +143,7 @@ Since the possibility of random chance is greater than 5% (0.05) we do not have 
 
 The result of the Mann-Whitney-Wilcoxon test has  p-value of 0.186 which is greater than 0.05. Therefore I don't find enough evidence to reject my null hypothesis. So I stick to my null hypothesis and conclude that the mean noise levels in my kitchen and living room are the same. The difference in mean that I observed in my measurements is not statistically significant.  
 
-#Note
+# Note
 
 1. Hypothesis testing could also be done using the critical value approach which is an old school text book method. I have used the p-value method since it is easy to implement that in modern statistical software. 
 2. Hypothesis testing is not as simple as it sounds. 
