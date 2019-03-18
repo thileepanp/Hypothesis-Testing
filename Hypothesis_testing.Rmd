@@ -70,7 +70,7 @@ While comparing the sample means of 2 groups if the assumptions of normal distri
 
 ## Testing normality in data
 
-For testing normality I will use the Shapiro Wilk test. I will also calculate the skewness of the data and visualize the histograms of these data. 
+For testing normality I will use the Shapiro Wilk test. I will also calculate the skewness and kurtosis of the data and visualize the density plot as well as the histograms of these data. 
 
 ### Skewness
 
