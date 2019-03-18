@@ -1,5 +1,5 @@
 ---
-title: "Hypothesis_Testing"
+title: "Hypothesis Testing"
 author: "Thileepan Paulraj"
 date: "14 March 2019"
 output: pdf_document
