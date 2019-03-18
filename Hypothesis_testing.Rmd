@@ -1,0 +1,144 @@
+---
+title: "Hypothesis_Testing"
+author: "Thileepan Paulraj"
+date: "14 March 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+About a year ago, I thought I have learned hypothesis testing, but when I wanted to recollect the concept of hypothesis testing last week, I realised that the concept is not clear for me. 
+
+So, I decided to learn it again.
+
+# Steps to do hypothesis testing
+
+1. Start by saying the null hypothesis (H~0~) is true. 
+2. Take a sample and get test statistic
+3. Work out to find out how likely or unlikely it is to get a statistic like this if the null-hypothesis is true. p-value will help us here.
+
+# What is p-value? 
+
+Given our null hypothesis (H~0~) is true, p-value gives us the probability that our observed result has happened due to luck or random chance.
+
+# Problem statement
+
+One day the window in my living room was open so the noise level inside the house was higher than usual. My kitchen in next to my living room. I wanted to check if the noise levels inside my kitchen and living room are the same. 
+
+So my null hypothesis is that the average noise level in my kitchen and living room are the same. 
+
+H~0~ : NOISE~Kitchen~ = NOISE~Living_room~
+
+My alrernative hypothesis is the average noise levels in my kitchen and living room are different. 
+
+H~A~ : NOISE~Kitchen~ != NOISE~Living_room~
+
+
+# Data collection
+
+I used a mobile application to calculate 10 seconds average Sound Pressure Levels (SPL) both in my kitchen and my living room. I took 15 measurements at both the locations. 
+
+```{r}
+kitchen.noise = c(27,30,30,30,30,30,29,29,27,29,30,35,33,33,32)
+
+living.noise = c(32,31,31,30,29,29,29,29,28,28,28,28,27,27,37)
+```
+
+# Calculating the mean difference
+
+It is easy to calculate the mean of both these noise calculations ans see the difference between both the locations. This will give a hunch about the noise levels at both the locations. 
+
+```{r}
+diff.in.mean = mean(kitchen.noise) - mean(living.noise)
+diff.in.mean
+```
+
+We observe a 0.733 dB difference in mean SPLs at both the locations. This will easily dismiss our H~0~. But is this reliable? can we so easily dismiss our H~0~? can we say that this difference we observe is statistically significant? 
+This is where p-value will help us. 
+
+# Choosing the appropriate test
+
+There are different tests available to test our hypothesis. Choosing the appropriate test is important. 
+
+## Assumptions of normal distribution. 
+
+We only have 15 samples in our dataset, they are not big enough to assume normal distribution. 
+If we are comparing the sample means of two groups and we assume that the groups follow normal distribution then we either use t-tests. 
+While comparing the sample means of 2 groups if the assumptions of normal distribution is not met then we use Mann-Whitney-Wilcoxon test. 
+
+## Testing normality in data
+
+For testing normality I will use the Shapiro Wilk test. I will also calculate the skewness of the data and visualize the histograms of these data. 
+
+### Skewness
+
+```{r}
+library(moments)
+
+skewness(kitchen.noise)
+
+skewness(living.noise)
+```
+
+Skewness results indicate that the data is slightly skewed to the right. 
+
+### Kurtosis
+
+```{r}
+kurtosis(kitchen.noise)
+
+kurtosis(living.noise)
+```
+Both the data has positive kurtosis and indicates a *fat-tailed* distribution. This kind of kurtosis is called **leptokurtic** 
+
+### Desnity plot
+
+We can plot the density plot of the data set to see if it has a bell-shaped curve. 
+
+```{r}
+plot(density(kitchen.noise))
+
+plot(density(living.noise))
+```
+
+The noise levels in kitchen has a distribution shape which is close to the bell shaped curve but still it's not bell shaped. 
+
+Living room noise levels are clearly not bell shaped at all. 
+
+### Histograms
+
+```{r}
+hist(kitchen.noise)
+hist(living.noise)
+```
+
+The histograms of both the kitchen and living room noise levels doesn't clearly indicate a normal distibution.
+
+### Shapiro Wilk test
+
+```{r}
+shapiro.test(living.noise)
+shapiro.test(kitchen.noise)
+```
+
+For the noise levels in kitchen the p-value of the shapiro wikk test is greater than 0.05 therefore we can assume it to be normally distributed. But the p-value of the shapiro test on the living room noise is less than 0.05 therefore we can't assume it to be normally distributed. 
+
+### conclusion on normality
+
+Since the size of the dataset is small and also there is no clear evidence to prove normal distribution of the data I will not assume the data is normally distributed. Therefore I will use the Mann-Whitney-Wilcoxon test. 
+
+# Testing the hypothesis
+
+```{r}
+wilcox.test(living.noise, kitchen.noise)
+```
+
+Our p-value 0.1846 which is greater than 0.05. This tell us that there is a 18.46% chance that the the difference in mean that we observed occurred due to random chance if our H~0~ is true (i.e. the average noise levels in the kitchen and living room are the same). 
+
+Since the possibility of random chance is greater than 5% (0.05) we do not have sufficient evidence to reject our null hypothesis (H~0~). 
+
+# Result
+
+The result of the Mann-Whitney-Wilcoxon test has  p-value of 0.186 which is greater than 0.05. Therefore I don't find enough evidence to reject my null hypothesis. So I stick to my null hypothesis and conclude that the mean noise levels in my kitchen and living room are the same. The difference in mean that I observed in my measurements is not statistically significant.  
