@@ -65,7 +65,7 @@ There are different tests available to test our hypothesis. Choosing the appropr
 ## Assumptions of normal distribution. 
 
 We only have 15 samples in our dataset, they are not big enough to assume normal distribution. 
-If we are comparing the sample means of two groups and we assume that the groups follow normal distribution then we use t-tests. 
+If we are comparing the sample means of two groups and we assume that the groups follow normal distribution then we use paired or unpaired t-tests. 
 While comparing the sample means of 2 groups if the assumptions of normal distribution is not met then we use Mann-Whitney-Wilcoxon test. 
 
 ## Testing normality in data
